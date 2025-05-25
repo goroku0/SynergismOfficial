@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import DecimalNew from 'break_eternity.js'
 import i18next from 'i18next'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
@@ -51,7 +52,7 @@ const upgradetexts = [
   () => Math.floor(player.multiplierBought / 7),
   () => Math.floor(player.acceleratorBought / 10),
   () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
-  () => format(Decimal.pow(1.02, G.freeAccelerator), 2),
+  () => format(DecimalNew.pow(1.02, G.freeAccelerator), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
@@ -61,32 +62,72 @@ const upgradetexts = [
       ),
       2
     ),
-  () => format(Decimal.pow(1.15, G.freeAccelerator), 2),
-  () => format(Decimal.pow(1.15, G.freeAccelerator), 2),
-  () => format(Decimal.pow(G.acceleratorEffect, 1 / 3), 2),
+  () => format(DecimalNew.pow(1.15, G.freeAccelerator), 2),
+  () => format(DecimalNew.pow(1.15, G.freeAccelerator), 2),
+  () => format(DecimalNew.pow(G.acceleratorEffect, 1 / 3), 2),
   () => null,
   () => format(Decimal.min(1e125, player.transcendShards.add(1))),
   () => format(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1))),
   () => format(Decimal.pow((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 10), 2),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(5 + (1 / 101 * G.freeAccelerator)))
+    x: format(
+      new Decimal(1)
+        .add(new Decimal(1).div(101).mul(G.freeMultiplier))
+        .floor()
+    ),
+    y: format(
+      new DecimalNew(5)
+        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+        .floor()
+    )
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(4 + (1 / 101 * G.freeAccelerator)))
+    x: format(
+      new Decimal(1)
+        .add(new Decimal(1).div(101).mul(G.freeMultiplier))
+        .floor()
+    ),
+    y: format(
+      new DecimalNew(4)
+        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+        .floor()
+    )
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(3 + (1 / 101 * G.freeAccelerator)))
+    x: format(
+      new Decimal(1)
+        .add(new Decimal(1).div(101).mul(G.freeMultiplier))
+        .floor()
+    ),
+    y: format(
+      new DecimalNew(3)
+        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+        .floor()
+    )
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(2 + (1 / 101 * G.freeAccelerator)))
+    x: format(
+      new Decimal(1)
+        .add(new Decimal(1).div(101).mul(G.freeMultiplier))
+        .floor()
+    ),
+    y: format(
+      new DecimalNew(2)
+        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+        .floor()
+    )
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(1 + (1 / 101 * G.freeAccelerator)))
+    x: format(
+      new Decimal(1)
+        .add(new Decimal(1).div(101).mul(G.freeMultiplier))
+        .floor()
+    ),
+    y: format(
+      new DecimalNew(1)
+        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+        .floor()
+    )
   }),
   () => null,
   () =>
@@ -136,12 +177,24 @@ const upgradetexts = [
   () => format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))),
   () => null,
   () => format(Math.pow(1.05, player.achievementPoints) * (player.achievementPoints + 1), 2),
-  () => format(Math.pow(Math.min(1e25, G.totalMultiplier * G.totalAccelerator) / 1000 + 1, 8)),
+  () => format(
+    new DecimalNew(1e25)
+      .min(new DecimalNew(G.totalMultiplier).mul(G.totalAccelerator))
+      .div(new DecimalNew(1000))
+      .add(new DecimalNew(1))
+      .pow(8)
+  )
+  ,
   () => format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))),
   () => null,
-  () => format(Math.pow(G.totalAcceleratorBoost, 2), 2),
+  () => format(DecimalNew.pow(G.totalAcceleratorBoost, 2), 2),
   () => format(Decimal.pow(G.globalMythosMultiplier, 0.025), 2),
-  () => format(Decimal.min('1e1250', Decimal.pow(G.acceleratorEffect, 1 / 125)), 2),
+  () => format(
+    new DecimalNew('1e1250')
+      .min(G.acceleratorEffect.pow(new DecimalNew(1).div(125)))
+      .min(2)
+  )
+  ,
   () => format(Decimal.min('1e2000', Decimal.pow(G.multiplierEffect, 1 / 180)), 2),
   () => format(Decimal.pow('1e1000', Math.min(1000, G.buildingPower - 1)), 2),
   () => null,

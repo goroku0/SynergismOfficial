@@ -130,7 +130,9 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('buildtext12').textContent = i18next.t(
       'buildings.acceleratorPower',
       {
-        power: format((G.acceleratorPower - 1) * 100, 2),
+        power: format(G.acceleratorPower
+          .sub(1)
+          .mul(100), 2),
         mult: format(G.acceleratorEffect, 2)
       }
     )

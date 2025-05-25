@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import DecimalNew from 'break_eternity.js'
 import { calculateSigmoid } from './Calculate'
 import { Tabs } from './Tabs'
 import type { GlobalVariables } from './types/Synergism'
@@ -123,14 +124,14 @@ export const Globals: GlobalVariables = {
 
   costDivisor: 1,
 
-  freeAccelerator: 0,
-  totalAccelerator: 0,
-  freeAcceleratorBoost: 0,
-  totalAcceleratorBoost: 0,
-  acceleratorPower: 1.10,
-  acceleratorEffect: new Decimal(1),
-  acceleratorEffectDisplay: new Decimal(1),
-  generatorPower: new Decimal(1),
+  freeAccelerator: new DecimalNew(0),
+  totalAccelerator: new DecimalNew(0),
+  freeAcceleratorBoost: new DecimalNew(0),
+  totalAcceleratorBoost: new DecimalNew(0),
+  acceleratorPower: new DecimalNew(1.10),
+  acceleratorEffect: new DecimalNew(1),
+  acceleratorEffectDisplay: new DecimalNew(1),
+  generatorPower: new DecimalNew(1),
 
   freeMultiplier: 0,
   totalMultiplier: 0,
@@ -437,7 +438,7 @@ export const Globals: GlobalVariables = {
     fourth: new Decimal('0'),
     fifth: new Decimal('0')
   },
-  freeUpgradeAccelerator: 0,
+  freeUpgradeAccelerator: new DecimalNew(0),
   freeUpgradeMultiplier: 0,
 
   acceleratorMultiplier: 1,

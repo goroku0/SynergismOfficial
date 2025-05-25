@@ -49,6 +49,7 @@ import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex, productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { to_decimalNew } from './mod/try_break_eternity'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -521,10 +522,9 @@ export const calculateTotalAcceleratorBoost = () => {
     b *= 2
   }
   b = Math.min(1e100, Math.floor(b))
-  G.freeAcceleratorBoost = b
+  G.freeAcceleratorBoost = to_decimalNew(b)
 
-  G.totalAcceleratorBoost = (Math.floor(player.acceleratorBoostBought + G.freeAcceleratorBoost) * 100)
-    / 100
+  G.totalAcceleratorBoost = to_decimalNew(player.acceleratorBoostBought).add(G.freeAcceleratorBoost).floor().mul(100).div(100)
 }
 
 export const calculateAcceleratorMultiplier = () => {

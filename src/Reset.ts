@@ -61,6 +61,7 @@ import { getElementById } from './Utility'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { to_decimalNew } from './mod/try_break_eternity'
 
 let repeatreset: number
 
@@ -398,7 +399,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   player.prestigecounter = 0
   G.autoResetTimers.prestige = 0
 
-  G.generatorPower = new Decimal(1)
+  G.generatorPower = to_decimalNew(1)
 
   const types = [
     'transcension',
