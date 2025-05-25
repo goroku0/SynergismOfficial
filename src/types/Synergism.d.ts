@@ -1,4 +1,5 @@
 import type Decimal from 'break_infinity.js'
+import type DecimalNew from 'break_eternity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
@@ -686,14 +687,14 @@ export interface GlobalVariables {
 
   costDivisor: number
 
-  freeAccelerator: number
-  totalAccelerator: number
-  freeAcceleratorBoost: number
-  totalAcceleratorBoost: number
-  acceleratorPower: number
-  acceleratorEffect: Decimal
-  acceleratorEffectDisplay: Decimal
-  generatorPower: Decimal
+  freeAccelerator: DecimalNew
+  totalAccelerator: DecimalNew
+  freeAcceleratorBoost: DecimalNew
+  totalAcceleratorBoost: DecimalNew
+  acceleratorPower: DecimalNew
+  acceleratorEffect: DecimalNew
+  acceleratorEffectDisplay: DecimalNew
+  generatorPower: DecimalNew
 
   freeMultiplier: number
   totalMultiplier: number
@@ -944,7 +945,7 @@ export interface GlobalVariables {
     fourth: Decimal
     fifth: Decimal
   }
-  freeUpgradeAccelerator: number
+  freeUpgradeAccelerator: DecimalNew
   freeUpgradeMultiplier: number
 
   acceleratorMultiplier: number
