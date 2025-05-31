@@ -9,8 +9,8 @@ import {
 import { format, player } from './Synergism'
 import { Globals as G } from './Variables'
 
-import type { DecimalSource } from 'break_infinity.js'
-import Decimal from 'break_infinity.js'
+import type { DecimalSource } from 'break_eternity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -168,6 +168,7 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
     buyTo = buyTo * 4
     cashToBuy = getAntCost(originalCost, buyTo, index)
   }
+  buyTo = Math.min(buyTo, 1e300)
   let stepdown = Math.floor(buyTo / 8)
   while (stepdown >= smallestInc(buyTo)) {
     if (getAntCost(originalCost, buyTo - stepdown, index).lte(player[tag])) {
@@ -185,7 +186,7 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
   // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
   let buyFrom = Math.max(buyTo - 6 - smallestInc(buyTo), buydefault)
   let thisCost = getAntCost(originalCost, buyFrom, index)
-  while (buyFrom <= buyTo && player[tag].gte(thisCost)) {
+  while (buyFrom <= buyTo && player[tag].gt(thisCost)) {
     player[tag] = player[tag].sub(thisCost)
     player[key] = buyFrom
     buyFrom = buyFrom + smallestInc(buyFrom)
@@ -243,7 +244,7 @@ export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index:
     // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
     let buyFrom = Math.max(buyTo - 6 - smallestInc(buyTo), buydefault)
     let thisCost = getAntUpgradeCost(originalCost, buyFrom, index)
-    while (buyFrom <= buyTo && player.antPoints.gte(thisCost)) {
+    while (buyFrom <= buyTo && player.antPoints.gt(thisCost)) {
       player.antPoints = player.antPoints.sub(thisCost)
       player.antUpgrades[index - 1] = buyFrom
       buyFrom = buyFrom + smallestInc(buyFrom)

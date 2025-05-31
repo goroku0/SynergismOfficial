@@ -2,9 +2,10 @@ import { player } from './Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import { achievementaward } from './Achievements'
 import { CalcECC } from './Challenges'
+import { to_number } from './mod/try_break_eternity'
 
 export const calculatetax = () => {
   let exp = 1
@@ -97,7 +98,7 @@ export const calculatetax = () => {
   exponent *= 0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[2]! + G.bonusant3)
   exponent *= 1
     / Math.pow(
-      1 + Decimal.log(player.ascendShards.add(1), 10),
+      1 + to_number(Decimal.log(player.ascendShards.add(1), 10)),
       1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5]
         + 0.2 * player.platonicUpgrades[10] + (G.platonicBonusMultiplier[5] - 1)
     )
@@ -115,8 +116,8 @@ export const calculatetax = () => {
   if (exponent < 1e-300) {
     exponent = 1e-300
   }
-  G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
-  const a2 = Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10)))
+  G.maxexponent = Math.floor(275 / (to_number(Decimal.log(1.01, 10)) * exponent)) - 1
+  const a2 = Math.min(G.maxexponent, Math.floor(to_number(Decimal.log(G.produceTotal.add(1), 10))))
 
   if (player.currentChallenge.ascension === 13 && G.maxexponent <= 99999 && player.achievements[249] < 1) {
     // i don't think it makes sense to give the achievement as soon as the challenge is opened

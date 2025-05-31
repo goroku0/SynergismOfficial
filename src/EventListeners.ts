@@ -22,16 +22,15 @@ import {
   resetLoadoutOnlyDisplay
 } from './BlueberryUpgrades'
 import {
-  boostAccelerator,
-  buyAccelerator,
   buyAllBlessings,
   buyCrystalUpgrades,
-  buyMultiplier,
-  buyParticleBuilding,
   buyProducer,
   buyRuneBonusLevels,
   buyTesseractBuilding
 } from './Buy'
+import { boostAccelerator } from './mod/Buy_moded'
+import { buyMultiplier } from './mod/Buy_moded'
+import { buyParticleBuilding } from './mod/Buy_moded'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { challengeDisplay, toggleRetryChallenges } from './Challenges'
@@ -134,6 +133,7 @@ import {
   upgradedescriptions
 } from './Upgrades'
 import { Globals as G } from './Variables'
+import { buyAccelerator } from './mod/Buy_moded'
 
 /* STYLE GUIDE */
 /*

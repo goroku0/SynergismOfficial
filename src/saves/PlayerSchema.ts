@@ -1,4 +1,4 @@
-import Decimal, { type DecimalSource } from 'break_infinity.js'
+import Decimal, { type DecimalSource } from 'break_eternity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
@@ -124,105 +124,105 @@ export const playerSchema = z.object({
   coinsThisReincarnation: decimalSchema,
   coinsTotal: decimalSchema,
 
-  firstOwnedCoin: z.number(),
+  firstOwnedCoin: decimalSchema,
   firstGeneratedCoin: decimalSchema,
   firstCostCoin: decimalSchema,
-  firstProduceCoin: z.number(),
+  firstProduceCoin: decimalSchema,
 
-  secondOwnedCoin: z.number(),
+  secondOwnedCoin: decimalSchema,
   secondGeneratedCoin: decimalSchema,
   secondCostCoin: decimalSchema,
-  secondProduceCoin: z.number(),
+  secondProduceCoin: decimalSchema,
 
-  thirdOwnedCoin: z.number(),
+  thirdOwnedCoin: decimalSchema,
   thirdGeneratedCoin: decimalSchema,
   thirdCostCoin: decimalSchema,
-  thirdProduceCoin: z.number(),
+  thirdProduceCoin: decimalSchema,
 
-  fourthOwnedCoin: z.number(),
+  fourthOwnedCoin: decimalSchema,
   fourthGeneratedCoin: decimalSchema,
   fourthCostCoin: decimalSchema,
-  fourthProduceCoin: z.number(),
+  fourthProduceCoin: decimalSchema,
 
-  fifthOwnedCoin: z.number(),
+  fifthOwnedCoin: decimalSchema,
   fifthGeneratedCoin: decimalSchema,
   fifthCostCoin: decimalSchema,
-  fifthProduceCoin: z.number(),
+  fifthProduceCoin: decimalSchema,
 
-  firstOwnedDiamonds: z.number(),
+  firstOwnedDiamonds: decimalSchema,
   firstGeneratedDiamonds: decimalSchema,
   firstCostDiamonds: decimalSchema,
-  firstProduceDiamonds: z.number(),
+  firstProduceDiamonds: decimalSchema,
 
-  secondOwnedDiamonds: z.number(),
+  secondOwnedDiamonds: decimalSchema,
   secondGeneratedDiamonds: decimalSchema,
   secondCostDiamonds: decimalSchema,
-  secondProduceDiamonds: z.number(),
+  secondProduceDiamonds: decimalSchema,
 
-  thirdOwnedDiamonds: z.number(),
+  thirdOwnedDiamonds: decimalSchema,
   thirdGeneratedDiamonds: decimalSchema,
   thirdCostDiamonds: decimalSchema,
-  thirdProduceDiamonds: z.number(),
+  thirdProduceDiamonds: decimalSchema,
 
-  fourthOwnedDiamonds: z.number(),
+  fourthOwnedDiamonds: decimalSchema,
   fourthGeneratedDiamonds: decimalSchema,
   fourthCostDiamonds: decimalSchema,
-  fourthProduceDiamonds: z.number(),
+  fourthProduceDiamonds: decimalSchema,
 
-  fifthOwnedDiamonds: z.number(),
+  fifthOwnedDiamonds: decimalSchema,
   fifthGeneratedDiamonds: decimalSchema,
   fifthCostDiamonds: decimalSchema,
-  fifthProduceDiamonds: z.number(),
+  fifthProduceDiamonds: decimalSchema,
 
-  firstOwnedMythos: z.number(),
+  firstOwnedMythos: decimalSchema,
   firstGeneratedMythos: decimalSchema,
   firstCostMythos: decimalSchema,
-  firstProduceMythos: z.number(),
+  firstProduceMythos: decimalSchema,
 
-  secondOwnedMythos: z.number(),
+  secondOwnedMythos: decimalSchema,
   secondGeneratedMythos: decimalSchema,
   secondCostMythos: decimalSchema,
-  secondProduceMythos: z.number(),
+  secondProduceMythos: decimalSchema,
 
-  thirdOwnedMythos: z.number(),
+  thirdOwnedMythos: decimalSchema,
   thirdGeneratedMythos: decimalSchema,
   thirdCostMythos: decimalSchema,
-  thirdProduceMythos: z.number(),
+  thirdProduceMythos: decimalSchema,
 
-  fourthOwnedMythos: z.number(),
+  fourthOwnedMythos: decimalSchema,
   fourthGeneratedMythos: decimalSchema,
   fourthCostMythos: decimalSchema,
-  fourthProduceMythos: z.number(),
+  fourthProduceMythos: decimalSchema,
 
-  fifthOwnedMythos: z.number(),
+  fifthOwnedMythos: decimalSchema,
   fifthGeneratedMythos: decimalSchema,
   fifthCostMythos: decimalSchema,
-  fifthProduceMythos: z.number(),
+  fifthProduceMythos: decimalSchema,
 
-  firstOwnedParticles: z.number(),
+  firstOwnedParticles: decimalSchema,
   firstGeneratedParticles: decimalSchema,
   firstCostParticles: decimalSchema,
-  firstProduceParticles: z.number(),
+  firstProduceParticles: decimalSchema,
 
-  secondOwnedParticles: z.number(),
+  secondOwnedParticles: decimalSchema,
   secondGeneratedParticles: decimalSchema,
   secondCostParticles: decimalSchema,
-  secondProduceParticles: z.number(),
+  secondProduceParticles: decimalSchema,
 
-  thirdOwnedParticles: z.number(),
+  thirdOwnedParticles: decimalSchema,
   thirdGeneratedParticles: decimalSchema,
   thirdCostParticles: decimalSchema,
-  thirdProduceParticles: z.number(),
+  thirdProduceParticles: decimalSchema,
 
-  fourthOwnedParticles: z.number(),
+  fourthOwnedParticles: decimalSchema,
   fourthGeneratedParticles: decimalSchema,
   fourthCostParticles: decimalSchema,
-  fourthProduceParticles: z.number(),
+  fourthProduceParticles: decimalSchema,
 
-  fifthOwnedParticles: z.number(),
+  fifthOwnedParticles: decimalSchema,
   fifthGeneratedParticles: decimalSchema,
   fifthCostParticles: decimalSchema,
-  fifthProduceParticles: z.number(),
+  fifthProduceParticles: decimalSchema,
 
   firstOwnedAnts: z.number().default(() => blankSave.firstOwnedAnts),
   firstGeneratedAnts: decimalSchema,
@@ -271,12 +271,12 @@ export const playerSchema = z.object({
   ascendBuilding5: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding5)),
 
   multiplierCost: decimalSchema,
-  multiplierBought: z.number(),
+  multiplierBought: decimalSchema,
 
   acceleratorCost: decimalSchema,
-  acceleratorBought: z.number(),
+  acceleratorBought: decimalSchema,
 
-  acceleratorBoostBought: z.number(),
+  acceleratorBoostBought: decimalSchema,
   acceleratorBoostCost: decimalSchema,
 
   upgrades: z.number().array().transform((array) => {

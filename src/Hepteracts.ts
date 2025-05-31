@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import type { StringMap } from 'i18next'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'

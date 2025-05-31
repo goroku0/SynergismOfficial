@@ -6,7 +6,7 @@ file without asking me first. You may edit this file as much as you
 want, though!
 Thank you! */
 
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { calculateCubeBlessings } from './Calculate'
@@ -18,6 +18,7 @@ import { format, player } from './Synergism'
 import { calculateTesseractBlessings } from './Tesseracts'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
+import { to_number } from './mod/try_break_eternity'
 
 /* Constants */
 
@@ -384,7 +385,7 @@ export class WowPlatonicCubes extends Cube {
     calculatePlatonicBlessings()
     if (player.achievements[271] > 0) {
       const extraHypercubes = Math.floor(
-        toSpend * Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5))
+        toSpend * Math.max(0, Math.min(1, (to_number(Decimal.log(player.ascendShards.add(1), 10)) - 1e5) / 9e5))
       )
       player.wowHypercubes.open(extraHypercubes, false, true)
     }

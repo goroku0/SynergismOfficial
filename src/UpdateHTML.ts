@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { achievementaward, totalachievementpoints } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'

@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -43,13 +43,14 @@ import {
   antSacrificeTimeStats,
   offeringObtainiumTimeModifiers
 } from './Statistics'
-import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
+import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy } from './Synergism'
+import { updateAll } from './mod/try_break_eternity'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex, productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { to_decimalNew } from './mod/try_break_eternity'
+import { to_number } from './mod/try_break_eternity'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -104,7 +105,7 @@ export const calculateOfferings = (timeMultUsed = true, logMultOnly = false) => 
       1
     )
     : 1
-  const logMult = Decimal.log(calculateOfferingsDecimal(), 10)
+  const logMult = to_number(Decimal.log(calculateOfferingsDecimal(), 10))
 
   const totalLog = Math.log10(timeMultiplier) + logMult
 
@@ -169,7 +170,7 @@ export const calculateObtainium = (timeMultUsed = true, logMultOnly = false) => 
   // Some large value (say, -99999). We're doing this to preserve multipliers past 1e300
   // For purposes of corruption (It is okay to apply illiteracy to 1e600 if DR is 0.2, since you are left with 1e120)
 
-  const logMult = Decimal.log(calculateObtainiumDecimal(), 10)
+  const logMult = to_number(Decimal.log(calculateObtainiumDecimal(), 10))
 
   // Thanks to the logMult, we can treat the corruption effect as a multplier instead of an exponent.
   // The simplest formula for the effect on obtainium for is (Immaculate)^(1 - DR) * Mult^DR so logarithmic
@@ -226,7 +227,7 @@ export const calculateFastForwardResourcesGlobal = (
   // We're going to use the log trick to account for the fact that resourceMult * timeMult can still be >1e300
   // Even if timeMult is very small.
 
-  const logMult = Decimal.log10(resourceMult)
+  const logMult = to_number(Decimal.log10(resourceMult))
 
   // Math to compute the change in multiplier based on time
   // The amount of offerings to give is proportional to the difference in
@@ -457,74 +458,140 @@ export const calculateFreeShopInfinityUpgrades = () => {
 
 export const calculateTotalCoinOwned = () => {
   G.totalCoinOwned = player.firstOwnedCoin
-    + player.secondOwnedCoin
-    + player.thirdOwnedCoin
-    + player.fourthOwnedCoin
-    + player.fifthOwnedCoin
+    .add(player.secondOwnedCoin)
+    .add(player.thirdOwnedCoin)
+    .add(player.fourthOwnedCoin)
+    .add(player.fifthOwnedCoin)
 }
 
 export const calculateTotalAcceleratorBoost = () => {
-  let b = 0
+  let b = new Decimal(0)
   if (player.upgrades[26] > 0.5) {
-    b += 1
+    b = b.add(1)
   }
   if (player.upgrades[31] > 0.5) {
-    b += (Math.floor(G.totalCoinOwned / 2000) * 100) / 100
+    b = b.add(
+      G.totalCoinOwned
+        .div(2000)
+        .floor()
+        .mul(100)
+        .div(100)
+    )
   }
   if (player.achievements[7] > 0.5) {
-    b += Math.floor(player.firstOwnedCoin / 2000)
+    b = b.add(player.firstOwnedCoin.div(2000).floor())
   }
   if (player.achievements[14] > 0.5) {
-    b += Math.floor(player.secondOwnedCoin / 2000)
+    b = b.add(player.secondOwnedCoin.div(2000).floor())
   }
   if (player.achievements[21] > 0.5) {
-    b += Math.floor(player.thirdOwnedCoin / 2000)
+    b = b.add(player.thirdOwnedCoin.div(2000).floor())
   }
   if (player.achievements[28] > 0.5) {
-    b += Math.floor(player.fourthOwnedCoin / 2000)
+    b = b.add(player.fourthOwnedCoin.div(2000).floor())
   }
   if (player.achievements[35] > 0.5) {
-    b += Math.floor(player.fifthOwnedCoin / 2000)
+    b = b.add(player.fifthOwnedCoin.div(2000).floor())
   }
 
-  b += player.researches[93]
-    * Math.floor(
-      (1 / 20)
-        * (G.rune1level
-          + G.rune2level
-          + G.rune3level
-          + G.rune4level
-          + G.rune5level)
-    )
-  b += Math.floor(((0.01 + G.rune1level) * G.effectiveLevelMult) / 20)
-  b *= 1
-    + (1 / 5)
-      * player.researches[3]
-      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
-  b *= 1 + (1 / 20) * player.researches[16] + (1 / 20) * player.researches[17]
-  b *= 1 + (1 / 20) * player.researches[88]
-  b *= calculateSigmoidExponential(
-    20,
-    (((player.antUpgrades[4 - 1]! + G.bonusant4) / 1000) * 20) / 19
+  b = b.add(
+    new Decimal(player.researches[93])
+      .mul(
+        new Decimal(1)
+          .div(20)
+          .mul(G.rune1level)
+          .add(G.rune2level)
+          .add(G.rune3level)
+          .add(G.rune4level)
+          .add(G.rune5level)
+          )
+          .floor()
+      )
+
+  b = b.add(
+    new Decimal(0.01)
+      .add(G.rune1level)
+      .mul(G.effectiveLevelMult)
+      .div(20)
+      .floor()
   )
-  b *= 1 + (1 / 100) * player.researches[127]
-  b *= 1 + (0.8 / 100) * player.researches[142]
-  b *= 1 + (0.6 / 100) * player.researches[157]
-  b *= 1 + (0.4 / 100) * player.researches[172]
-  b *= 1 + (0.2 / 100) * player.researches[187]
-  b *= 1 + (0.01 / 100) * player.researches[200]
-  b *= 1 + (0.01 / 100) * player.cubeUpgrades[50]
-  b *= 1 + (1 / 1000) * hepteractEffective('acceleratorBoost')
+
+  b = b.mul(
+    new Decimal(1)
+      .add(
+        new Decimal(1).div(5)
+          .mul(player.researches[3])
+          .mul(new Decimal(1).add(new Decimal(1).div(2).mul(CalcECC('ascension', player.challengecompletions[14]))))
+      )
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(1).div(20).mul(player.researches[16]))
+      .add(new Decimal(1).div(20).mul(player.researches[17]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(1).div(20).mul(player.researches[88]))
+  )
+
+  b = b.mul(
+    calculateSigmoidExponential(
+      20,
+    (((player.antUpgrades[4 - 1]! + G.bonusant4) / 1000) * 20) / 19
+    )
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(1).div(100).mul(player.researches[127]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(0.8).div(100).mul(player.researches[142]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(0.6).div(100).mul(player.researches[157]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(0.4).div(100).mul(player.researches[172]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(0.2).div(100).mul(player.researches[187]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(0.01).div(100).mul(player.researches[200]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(0.01).div(100).mul(player.cubeUpgrades[50]))
+  )
+
+  b = b.mul(
+    new Decimal(1)
+      .add(new Decimal(1).div(1000).mul(hepteractEffective('acceleratorBoost')))
+  )
+
   if (
     player.upgrades[73] > 0.5
     && player.currentChallenge.reincarnation !== 0
   ) {
-    b *= 2
-  }
-  b = Math.min(1e100, Math.floor(b))
-  G.freeAcceleratorBoost = to_decimalNew(b)
+    b = b.mul(2)
+  }  
+  G.freeAcceleratorBoost = b
 
-  G.totalAcceleratorBoost = to_decimalNew(player.acceleratorBoostBought).add(G.freeAcceleratorBoost).floor().mul(100).div(100)
+  G.totalAcceleratorBoost = Decimal.add(player.acceleratorBoostBought, G.freeAcceleratorBoost).floor().mul(100).div(100)
 }
 
 export const calculateAcceleratorMultiplier = () => {
@@ -1199,7 +1266,7 @@ export const calculateAntSacrificeELO = () => {
   G.effectiveELO = 0
   const antUpgradeSum = sumContents(player.antUpgrades as number[])
   if (player.antPoints.gte('1e40')) {
-    G.antELO += Decimal.log(player.antPoints, 10)
+    G.antELO += to_number(Decimal.log(player.antPoints, 10))
     G.antELO += (1 / 2) * antUpgradeSum
     G.antELO += (1 / 10) * player.firstOwnedAnts
     G.antELO += (1 / 5) * player.secondOwnedAnts
@@ -1994,7 +2061,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
   }
   if (player.achievements[267] > 0) {
     multiplier *= 1
-      + Math.min(1, (1 / 100000) * Decimal.log(player.ascendShards.add(1), 10))
+      + Math.min(1, (1 / 100000) * to_number(Decimal.log(player.ascendShards.add(1), 10)))
   }
   if (player.achievements[259] > 0) {
     multiplier *= Math.max(

@@ -1,5 +1,4 @@
-import Decimal from 'break_infinity.js'
-import DecimalNew from 'break_eternity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
@@ -9,6 +8,7 @@ import { format, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
+import { to_number } from './mod/try_break_eternity'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
   3: () => ({
@@ -42,17 +42,17 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
 }
 
 const upgradetexts = [
-  () => format((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 2),
-  () => format((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 2),
-  () => format((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 2),
-  () => format((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 2),
-  () => format((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 2),
-  () => format((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 2),
-  () => Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))),
-  () => Math.floor(player.multiplierBought / 7),
-  () => Math.floor(player.acceleratorBought / 10),
-  () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
-  () => format(DecimalNew.pow(1.02, G.freeAccelerator), 2),
+  () => format(G.totalCoinOwned.add(1).mul(new Decimal(1e30).min(Decimal.pow(1.008, G.totalCoinOwned))), 2),
+  () => format(G.totalCoinOwned.add(1).mul(new Decimal(1e30).min(Decimal.pow(1.008, G.totalCoinOwned))), 2),
+  () => format(G.totalCoinOwned.add(1).mul(new Decimal(1e30).min(Decimal.pow(1.008, G.totalCoinOwned))), 2),
+  () => format(G.totalCoinOwned.add(1).mul(new Decimal(1e30).min(Decimal.pow(1.008, G.totalCoinOwned))), 2),
+  () => format(G.totalCoinOwned.add(1).mul(new Decimal(1e30).min(Decimal.pow(1.008, G.totalCoinOwned))), 2),
+  () => format(G.totalCoinOwned.add(1).mul(new Decimal(1e30).min(Decimal.pow(1.008, G.totalCoinOwned))), 2),
+  () => Decimal.min(4, Decimal.floor(Decimal.log(player.fifthOwnedCoin.add(1), 10)).add(1)),
+  () => Decimal.floor(player.multiplierBought.div(7)),
+  () => Decimal.floor(player.acceleratorBought.div(10)),
+  () => format(Decimal.pow(2, Decimal.min(50, player.secondOwnedCoin.div(15))), 2),
+  () => format(Decimal.pow(1.02, G.freeAccelerator), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
@@ -62,13 +62,13 @@ const upgradetexts = [
       ),
       2
     ),
-  () => format(DecimalNew.pow(1.15, G.freeAccelerator), 2),
-  () => format(DecimalNew.pow(1.15, G.freeAccelerator), 2),
-  () => format(DecimalNew.pow(G.acceleratorEffect, 1 / 3), 2),
+  () => format(Decimal.pow(1.15, G.freeAccelerator), 2),
+  () => format(Decimal.pow(1.15, G.freeAccelerator), 2),
+  () => format(Decimal.pow(G.acceleratorEffect, 1 / 3), 2),
   () => null,
   () => format(Decimal.min(1e125, player.transcendShards.add(1))),
   () => format(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1))),
-  () => format(Decimal.pow((G.totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, G.totalCoinOwned)), 10), 2),
+  () => format(Decimal.pow((G.totalCoinOwned.add(1)).mul(Decimal.min(1e30, Decimal.pow(1.008, G.totalCoinOwned))), 10), 2),
   () => ({
     x: format(
       new Decimal(1)
@@ -76,8 +76,8 @@ const upgradetexts = [
         .floor()
     ),
     y: format(
-      new DecimalNew(5)
-        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+      new Decimal(5)
+        .add(new Decimal(1).div(101).mul(G.freeAccelerator))
         .floor()
     )
   }),
@@ -88,8 +88,8 @@ const upgradetexts = [
         .floor()
     ),
     y: format(
-      new DecimalNew(4)
-        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+      new Decimal(4)
+        .add(new Decimal(1).div(101).mul(G.freeAccelerator))
         .floor()
     )
   }),
@@ -100,8 +100,8 @@ const upgradetexts = [
         .floor()
     ),
     y: format(
-      new DecimalNew(3)
-        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+      new Decimal(3)
+        .add(new Decimal(1).div(101).mul(G.freeAccelerator))
         .floor()
     )
   }),
@@ -112,8 +112,8 @@ const upgradetexts = [
         .floor()
     ),
     y: format(
-      new DecimalNew(2)
-        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+      new Decimal(2)
+        .add(new Decimal(1).div(101).mul(G.freeAccelerator))
         .floor()
     )
   }),
@@ -124,47 +124,56 @@ const upgradetexts = [
         .floor()
     ),
     y: format(
-      new DecimalNew(1)
-        .add(new DecimalNew(1).div(101).mul(G.freeAccelerator))
+      new Decimal(1)
+        .add(new Decimal(1).div(101).mul(G.freeAccelerator))
         .floor()
     )
   }),
   () => null,
   () =>
     format(
-      Math.min(250, Math.floor(Decimal.log(player.coins.add(1), 1e3)))
-        + Math.max(0, Math.min(1750, Math.floor(Decimal.log(player.coins.add(1), 1e15)) - 50))
+      Decimal.min(250, Decimal.floor(Decimal.log(player.coins.add(1), 1e3)))
+        .add(Decimal.max(0, Decimal.min(1750, Decimal.floor(Decimal.log(player.coins.add(1), 1e15)).sub(50))))
     ),
   () =>
     format(
-      Math.min(
+      Decimal.min(
         1000,
-        Math.floor(
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 160
+        Decimal.floor(
+          player.firstOwnedCoin
+            .add(player.secondOwnedCoin)
+            .add(player.thirdOwnedCoin)
+            .add(player.fourthOwnedCoin)
+            .add(player.fifthOwnedCoin)
+            .div(160)
+
         )
       )
     ),
   () =>
     format(
-      Math.floor(
-        Math.min(
+      Decimal.floor(
+        Decimal.min(
           2000,
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 80
+          player.firstOwnedCoin
+            .add(player.secondOwnedCoin)
+            .add(player.thirdOwnedCoin)
+            .add(player.fourthOwnedCoin)
+            .add(player.fifthOwnedCoin)
+            .div(80)
         )
       )
     ),
   () =>
     format(
-      Math.min(75, Math.floor(Decimal.log(player.coins.add(1), 1e10)))
-        + Math.min(925, Math.floor(Decimal.log(player.coins.add(1), 1e30)))
+      Decimal.min(75, Decimal.floor(player.coins.add(1).log(1e10)))
+        .add(Decimal.min(925, Decimal.floor(player.coins.add(1).log(1e30))))
     ),
-  () => format(Math.floor(G.totalCoinOwned / 2000)),
-  () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
+  () => format(G.totalCoinOwned.div(2000).floor()),
+  () => format(Decimal.min(500, Decimal.floor(player.prestigePoints.add(1).log(1e25)))),
   () => format(G.totalAcceleratorBoost),
-  () => format(Math.floor(3 / 103 * G.freeMultiplier)),
-  () => format(Math.floor(2 / 102 * G.freeMultiplier)),
+  () => format(Decimal.floor(new Decimal(3).div(103).mul(G.freeMultiplier))),
+  () => format(Decimal.floor(new Decimal(2).div(102).mul(G.freeMultiplier))),
   () => format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
   () => format(Decimal.pow(Decimal.log(player.prestigePoints.add(10), 10), 2), 2),
   () => null,
@@ -174,24 +183,24 @@ const upgradetexts = [
   () => format(Decimal.min(1e50, Decimal.pow(player.prestigePoints.add(1), 1 / 50).dividedBy(2.5).add(1)), 2),
   () => format(Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)), 2),
   () => format(Decimal.min(1e6, Decimal.pow(1.01, player.transcendCount)), 2),
-  () => format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))),
+  () => format(Decimal.min(2500, Decimal.floor(Decimal.log(player.transcendShards.add(1), 10)))),
   () => null,
   () => format(Math.pow(1.05, player.achievementPoints) * (player.achievementPoints + 1), 2),
   () => format(
-    new DecimalNew(1e25)
-      .min(new DecimalNew(G.totalMultiplier).mul(G.totalAccelerator))
-      .div(new DecimalNew(1000))
-      .add(new DecimalNew(1))
+    new Decimal(1e25)
+      .min(new Decimal(G.totalMultiplier).mul(G.totalAccelerator))
+      .div(new Decimal(1000))
+      .add(new Decimal(1))
       .pow(8)
   )
   ,
-  () => format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))),
+  () => format(Decimal.min(50, Decimal.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))),
   () => null,
-  () => format(DecimalNew.pow(G.totalAcceleratorBoost, 2), 2),
+  () => format(Decimal.pow(G.totalAcceleratorBoost, 2), 2),
   () => format(Decimal.pow(G.globalMythosMultiplier, 0.025), 2),
   () => format(
-    new DecimalNew('1e1250')
-      .min(G.acceleratorEffect.pow(new DecimalNew(1).div(125)))
+    new Decimal('1e1250')
+      .min(G.acceleratorEffect.pow(new Decimal(1).div(125)))
       .min(2)
   )
   ,
@@ -212,18 +221,21 @@ const upgradetexts = [
     format(
       Decimal.pow(
         1.03,
-        player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles
-          + player.fourthOwnedParticles + player.fifthOwnedParticles
+        player.firstOwnedParticles
+          .add(player.secondOwnedParticles)
+          .add(player.thirdOwnedParticles)
+          .add(player.fourthOwnedParticles)
+          .add(player.fifthOwnedParticles)
       ),
       2
     ),
-  () => format(Math.min(2500, Math.floor(1 / 1000 * Decimal.log(G.taxdivisor, 10)))),
+  () => format(Decimal.min(2500, Decimal.floor(new Decimal(1).div(1000).mul(G.taxdivisor.log(10))))),
   () => {
     const a = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
     const b = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
     return {
-      x: format(Math.min(10, new Decimal(a).toNumber()), 2),
-      y: format(Math.min(3, new Decimal(b).toNumber()), 2)
+      x: format(Decimal.min(10, a), 2),
+      y: format(Decimal.min(3, b), 2)
     }
   },
   () => format(1 / 3 * Math.log(player.maxobtainium + 1) / Math.log(10), 2, true),
@@ -426,8 +438,8 @@ const crystalupgeffect: Record<number, () => Record<string, string>> = {
               + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4),
             0.001 * player.crystalUpgrades[2]
           ),
-        player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds
-          + player.fifthOwnedDiamonds
+        player.firstOwnedDiamonds.add(player.secondOwnedDiamonds).add(player.thirdOwnedDiamonds).add(player.fourthOwnedDiamonds)
+          .add(player.fifthOwnedDiamonds)
       ),
       2,
       true
@@ -552,9 +564,15 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
     x: format(1 + 0.04 * player.constantUpgrades[4], 2, true)
   }),
   5: () => ({
-    x: format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)
+    x: format(
+      new Decimal(1)
+        .add(new Decimal(0.1).mul(player.ascendShards.add(1).log(10)))
+        .pow(player.constantUpgrades[5]),
+      2,
+      true
+    )
   }),
-  6: () => ({
+    6: () => ({
     x: format(2 * player.constantUpgrades[6])
   }),
   7: () => ({
@@ -572,50 +590,55 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
     )
   }),
   10: () => ({
-    x: format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)
+    x: format(
+      new Decimal(1)
+        .add(new Decimal(0.01).mul(player.ascendShards.add(1).log(4))
+        .mul(Decimal.min(1, player.constantUpgrades[10]))),
+      4,
+      true
+    )
   })
 }
 
 const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.${i}`, constantUpgDesc[i]?.())
 const returnConstUpgEffect = (i: number) => i18next.t(`upgrades.constantEffects.${i}`, constUpgEffect[i]?.())
 
-export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
-  let toBuy: number
+export const getConstUpgradeMetadata = (i: number): [Decimal, Decimal] => {
+  let toBuy: Decimal
   let cost: Decimal
 
   if (i >= 9) {
     if (player.constantUpgrades[i]! >= 1) {
-      toBuy = 0
+      toBuy = new Decimal(0)
     } else {
-      toBuy = Math.min(
+      toBuy = Decimal.min(
         1,
-        Math.max(
+        Decimal.max(
           0,
-          Math.floor(
-            1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10)
-              - Math.log(G.constUpgradeCosts[i]!) / Math.log(10)
+          Decimal.floor(
+            Decimal.log(Decimal.max(0.01, player.ascendShards), 10).add(1).sub(Math.log(G.constUpgradeCosts[i]!) / Math.log(10))
           )
         )
       )
     }
   } else {
-    toBuy = Math.max(
+    toBuy = Decimal.max(
       0,
-      Math.floor(
-        1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10)
+      Decimal.floor(
+        Decimal.log(Decimal.max(0.01, player.ascendShards), 10).add(1).sub(Math.log(G.constUpgradeCosts[i]!) / Math.log(10))
       )
     )
   }
 
-  if (toBuy > player.constantUpgrades[i]!) {
-    cost = Decimal.pow(10, toBuy - 1).times(G.constUpgradeCosts[i]!)
+  if (toBuy.gt(player.constantUpgrades[i]!)) {
+    cost = Decimal.pow(10, toBuy.sub(1)).times(G.constUpgradeCosts[i]!)
   } else {
     cost = i >= 9 && player.constantUpgrades[i]! >= 1
       ? new Decimal('0')
       : Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)
   }
 
-  return [Math.max(1, toBuy - player.constantUpgrades[i]!), cost]
+  return [Decimal.max(1, toBuy.sub(player.constantUpgrades[i]!)), cost]
 }
 
 export const constantUpgradeDescriptions = (i: number) => {
@@ -631,8 +654,8 @@ export const constantUpgradeDescriptions = (i: number) => {
 export const buyConstantUpgrades = (i: number, fast = false) => {
   const [level, cost] = getConstUpgradeMetadata(i)
   if (i <= 8 || (i >= 9 && player.constantUpgrades[i]! < 1)) {
-    if (player.ascendShards.gte(cost)) {
-      player.constantUpgrades[i]! += level
+    if (player.ascendShards.gt(cost)) {
+      player.constantUpgrades[i]! += to_number(level)
       if (player.researches[175] === 0) {
         player.ascendShards = player.ascendShards.sub(cost)
       }

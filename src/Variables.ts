@@ -1,5 +1,4 @@
-import Decimal from 'break_infinity.js'
-import DecimalNew from 'break_eternity.js'
+import Decimal from 'break_eternity.js'
 import { calculateSigmoid } from './Calculate'
 import { Tabs } from './Tabs'
 import type { GlobalVariables } from './types/Synergism'
@@ -124,25 +123,25 @@ export const Globals: GlobalVariables = {
 
   costDivisor: 1,
 
-  freeAccelerator: new DecimalNew(0),
-  totalAccelerator: new DecimalNew(0),
-  freeAcceleratorBoost: new DecimalNew(0),
-  totalAcceleratorBoost: new DecimalNew(0),
-  acceleratorPower: new DecimalNew(1.10),
-  acceleratorEffect: new DecimalNew(1),
-  acceleratorEffectDisplay: new DecimalNew(1),
-  generatorPower: new DecimalNew(1),
+  freeAccelerator: new Decimal(0),
+  totalAccelerator: new Decimal(0),
+  freeAcceleratorBoost: new Decimal(0),
+  totalAcceleratorBoost: new Decimal(0),
+  acceleratorPower: new Decimal(1.10),
+  acceleratorEffect: new Decimal(1),
+  acceleratorEffectDisplay: new Decimal(1),
+  generatorPower: new Decimal(1),
 
-  freeMultiplier: 0,
-  totalMultiplier: 0,
-  multiplierPower: 2,
+  freeMultiplier: new Decimal(0),
+  totalMultiplier: new Decimal(0),
+  multiplierPower: new Decimal(2),
   multiplierEffect: new Decimal(1),
   challengeOneLog: 3,
-  freeMultiplierBoost: 0,
-  totalMultiplierBoost: 0,
+  freeMultiplierBoost: new Decimal(0),
+  totalMultiplierBoost: new Decimal(0),
 
   globalCoinMultiplier: new Decimal(1),
-  totalCoinOwned: 0,
+  totalCoinOwned: new Decimal(0),
   prestigeMultiplier: new Decimal(1),
   buildingPower: 1,
   reincarnationMultiplier: new Decimal(1),
@@ -161,7 +160,7 @@ export const Globals: GlobalVariables = {
 
   mythosBuildingPower: 1,
   challengeThreeMultiplier: new Decimal(1),
-  totalMythosOwned: 0,
+  totalMythosOwned: new Decimal(0),
 
   prestigePointGain: new Decimal(0),
   challengeFivePower: 1 / 3,
@@ -438,8 +437,8 @@ export const Globals: GlobalVariables = {
     fourth: new Decimal('0'),
     fifth: new Decimal('0')
   },
-  freeUpgradeAccelerator: new DecimalNew(0),
-  freeUpgradeMultiplier: 0,
+  freeUpgradeAccelerator: new Decimal(0),
+  freeUpgradeMultiplier: new Decimal(0),
 
   acceleratorMultiplier: 1,
   multiplierMultiplier: 1,

@@ -10,7 +10,7 @@ import {
 import { format, player } from './Synergism'
 import { Globals as G } from './Variables'
 
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import i18next, { type StringMap } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 

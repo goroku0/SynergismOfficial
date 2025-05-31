@@ -1,5 +1,5 @@
-import type { DecimalSource } from 'break_infinity.js'
-import Decimal from 'break_infinity.js'
+import type { DecimalSource } from 'break_eternity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { antSacrificePointsToMultiplier } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -130,7 +130,7 @@ export type ResetHistoryGainType = keyof Pick<
   | 'quarkHept'
 >
 
-// A formatter that allows formatting a string. The string should be in a form parsable by break_infinity.js.
+// A formatter that allows formatting a string. The string should be in a form parsable by break_eternity.js.
 const formatDecimalSource = (numOrStr: DecimalSource) => {
   return format(typeof numOrStr === 'string' ? new Decimal(numOrStr) : numOrStr)
 }

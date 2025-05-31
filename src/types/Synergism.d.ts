@@ -1,5 +1,4 @@
-import type Decimal from 'break_infinity.js'
-import type DecimalNew from 'break_eternity.js'
+import type Decimal from 'break_eternity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
@@ -26,105 +25,105 @@ export interface Player {
   coinsThisReincarnation: Decimal
   coinsTotal: Decimal
 
-  firstOwnedCoin: number
+  firstOwnedCoin: Decimal
   firstGeneratedCoin: Decimal
   firstCostCoin: Decimal
-  firstProduceCoin: number
+  firstProduceCoin: Decimal
 
-  secondOwnedCoin: number
+  secondOwnedCoin: Decimal
   secondGeneratedCoin: Decimal
   secondCostCoin: Decimal
-  secondProduceCoin: number
+  secondProduceCoin: Decimal
 
-  thirdOwnedCoin: number
+  thirdOwnedCoin: Decimal
   thirdGeneratedCoin: Decimal
   thirdCostCoin: Decimal
-  thirdProduceCoin: number
+  thirdProduceCoin: Decimal
 
-  fourthOwnedCoin: number
+  fourthOwnedCoin: Decimal
   fourthGeneratedCoin: Decimal
   fourthCostCoin: Decimal
-  fourthProduceCoin: number
+  fourthProduceCoin: Decimal
 
-  fifthOwnedCoin: number
+  fifthOwnedCoin: Decimal
   fifthGeneratedCoin: Decimal
   fifthCostCoin: Decimal
-  fifthProduceCoin: number
+  fifthProduceCoin: Decimal
 
-  firstOwnedDiamonds: number
+  firstOwnedDiamonds: Decimal
   firstGeneratedDiamonds: Decimal
   firstCostDiamonds: Decimal
-  firstProduceDiamonds: number
+  firstProduceDiamonds: Decimal
 
-  secondOwnedDiamonds: number
+  secondOwnedDiamonds: Decimal
   secondGeneratedDiamonds: Decimal
   secondCostDiamonds: Decimal
-  secondProduceDiamonds: number
+  secondProduceDiamonds: Decimal
 
-  thirdOwnedDiamonds: number
+  thirdOwnedDiamonds: Decimal
   thirdGeneratedDiamonds: Decimal
   thirdCostDiamonds: Decimal
-  thirdProduceDiamonds: number
+  thirdProduceDiamonds: Decimal
 
-  fourthOwnedDiamonds: number
+  fourthOwnedDiamonds: Decimal
   fourthGeneratedDiamonds: Decimal
   fourthCostDiamonds: Decimal
-  fourthProduceDiamonds: number
+  fourthProduceDiamonds: Decimal
 
-  fifthOwnedDiamonds: number
+  fifthOwnedDiamonds: Decimal
   fifthGeneratedDiamonds: Decimal
   fifthCostDiamonds: Decimal
-  fifthProduceDiamonds: number
+  fifthProduceDiamonds: Decimal
 
-  firstOwnedMythos: number
+  firstOwnedMythos: Decimal
   firstGeneratedMythos: Decimal
   firstCostMythos: Decimal
-  firstProduceMythos: number
+  firstProduceMythos: Decimal
 
-  secondOwnedMythos: number
+  secondOwnedMythos: Decimal
   secondGeneratedMythos: Decimal
   secondCostMythos: Decimal
-  secondProduceMythos: number
+  secondProduceMythos: Decimal
 
-  thirdOwnedMythos: number
+  thirdOwnedMythos: Decimal
   thirdGeneratedMythos: Decimal
   thirdCostMythos: Decimal
-  thirdProduceMythos: number
+  thirdProduceMythos: Decimal
 
-  fourthOwnedMythos: number
+  fourthOwnedMythos: Decimal
   fourthGeneratedMythos: Decimal
   fourthCostMythos: Decimal
-  fourthProduceMythos: number
+  fourthProduceMythos: Decimal
 
-  fifthOwnedMythos: number
+  fifthOwnedMythos: Decimal
   fifthGeneratedMythos: Decimal
   fifthCostMythos: Decimal
-  fifthProduceMythos: number
+  fifthProduceMythos: Decimal
 
-  firstOwnedParticles: number
+  firstOwnedParticles: Decimal
   firstGeneratedParticles: Decimal
   firstCostParticles: Decimal
-  firstProduceParticles: number
+  firstProduceParticles: Decimal
 
-  secondOwnedParticles: number
+  secondOwnedParticles: Decimal
   secondGeneratedParticles: Decimal
   secondCostParticles: Decimal
-  secondProduceParticles: number
+  secondProduceParticles: Decimal
 
-  thirdOwnedParticles: number
+  thirdOwnedParticles: Decimal
   thirdGeneratedParticles: Decimal
   thirdCostParticles: Decimal
-  thirdProduceParticles: number
+  thirdProduceParticles: Decimal
 
-  fourthOwnedParticles: number
+  fourthOwnedParticles: Decimal
   fourthGeneratedParticles: Decimal
   fourthCostParticles: Decimal
-  fourthProduceParticles: number
+  fourthProduceParticles: Decimal
 
-  fifthOwnedParticles: number
+  fifthOwnedParticles: Decimal
   fifthGeneratedParticles: Decimal
   fifthCostParticles: Decimal
-  fifthProduceParticles: number
+  fifthProduceParticles: Decimal
 
   firstOwnedAnts: number
   firstGeneratedAnts: Decimal
@@ -198,12 +197,12 @@ export interface Player {
   }
 
   multiplierCost: Decimal
-  multiplierBought: number
+  multiplierBought: Decimal
 
   acceleratorCost: Decimal
-  acceleratorBought: number
+  acceleratorBought: Decimal
 
-  acceleratorBoostBought: number
+  acceleratorBoostBought: Decimal
   acceleratorBoostCost: Decimal
 
   upgrades: number[]
@@ -224,8 +223,8 @@ export interface Player {
 
   challengecompletions: number[]
   highestchallengecompletions: number[]
-  challenge15Exponent: number
-  highestChallenge15Exponent: number
+  challenge15Exponent: numberNew
+  highestChallenge15Exponent: numberNew
 
   retrychallenges: boolean
   currentChallenge: {
@@ -687,25 +686,25 @@ export interface GlobalVariables {
 
   costDivisor: number
 
-  freeAccelerator: DecimalNew
-  totalAccelerator: DecimalNew
-  freeAcceleratorBoost: DecimalNew
-  totalAcceleratorBoost: DecimalNew
-  acceleratorPower: DecimalNew
-  acceleratorEffect: DecimalNew
-  acceleratorEffectDisplay: DecimalNew
-  generatorPower: DecimalNew
+  freeAccelerator: Decimal
+  totalAccelerator: Decimal
+  freeAcceleratorBoost: Decimal
+  totalAcceleratorBoost: Decimal
+  acceleratorPower: Decimal
+  acceleratorEffect: Decimal
+  acceleratorEffectDisplay: Decimal
+  generatorPower: Decimal
 
-  freeMultiplier: number
-  totalMultiplier: number
-  multiplierPower: number
+  freeMultiplier: Decimal
+  totalMultiplier: Decimal
+  multiplierPower: Decimal
   multiplierEffect: Decimal
   challengeOneLog: number
-  freeMultiplierBoost: number
-  totalMultiplierBoost: number
+  freeMultiplierBoost: Decimal
+  totalMultiplierBoost: Decimal
 
   globalCoinMultiplier: Decimal
-  totalCoinOwned: number
+  totalCoinOwned: Decimal
   prestigeMultiplier: Decimal
   buildingPower: number
   reincarnationMultiplier: Decimal
@@ -724,7 +723,7 @@ export interface GlobalVariables {
 
   mythosBuildingPower: number
   challengeThreeMultiplier: Decimal
-  totalMythosOwned: number
+  totalMythosOwned: Decimal
 
   prestigePointGain: Decimal
   challengeFivePower: number
@@ -945,8 +944,8 @@ export interface GlobalVariables {
     fourth: Decimal
     fifth: Decimal
   }
-  freeUpgradeAccelerator: DecimalNew
-  freeUpgradeMultiplier: number
+  freeUpgradeAccelerator: Decimal
+  freeUpgradeMultiplier: Decimal
 
   acceleratorMultiplier: number
   multiplierMultiplier: number

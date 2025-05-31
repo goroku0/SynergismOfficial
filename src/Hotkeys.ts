@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { sacrificeAnts } from './Ants'
-import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
+import { boostAccelerator } from './mod/Buy_moded'
+import { buyMultiplier } from './mod/Buy_moded'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { promocodes } from './ImportExport'
 import { useConsumable } from './Shop'
@@ -9,6 +10,7 @@ import { getActiveSubTab, keyboardTabChange as kbTabChange, tabRow, Tabs } from 
 import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
+import { buyAccelerator } from './mod/Buy_moded'
 
 export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
   ['A', ['hotkeys.names.buyAccelerators', () => buyAccelerator(), false]],

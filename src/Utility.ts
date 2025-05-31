@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format } from './Synergism'
 
@@ -24,6 +24,13 @@ export const smallestInc = (x = 0): number => {
   } else {
     return 2 ** Math.floor(Math.log2(x) - 52)
   }
+}
+export const smallestDecimal = (x: Decimal): Decimal => {
+  if (x.exponent < 2e50) {
+    return new Decimal(1)
+  }
+  x.exponent = x.exponent / 2e50
+  return x
 }
 
 /**

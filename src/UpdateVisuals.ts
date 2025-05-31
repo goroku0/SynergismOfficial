@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { showSacrifice } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -53,9 +53,10 @@ import { loadStatisticsUpdate } from './Statistics'
 import { format, formatTimeShort, player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
-import type { Player, ZeroToFour } from './types/Synergism'
+import type { OneToFive, Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
+import { to_number } from './mod/try_break_eternity'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -197,7 +198,7 @@ export const visualUpdateBuildings = () => {
     if (player.reincarnationCount > 0.5) {
       warning = i18next.t('buildings.taxWarning', {
         gain: format(
-          Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10))
+          Decimal.pow(10, G.maxexponent - to_number(Decimal.log(G.taxdivisorcheck, 10)))
         )
       })
     }
@@ -241,8 +242,8 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`prestigetext${2 * i - 1}`).textContent = i18next.t(
         `buildings.names.${names[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedDiamonds` as const], 0, true),
-          gain: format(player[`${ith}GeneratedDiamonds` as const], 2)
+          amount: format(player[`${ith}OwnedDiamonds` as const]),
+          gain: format(player[`${ith}GeneratedDiamonds` as const])
         }
       )
 
@@ -265,7 +266,7 @@ export const visualUpdateBuildings = () => {
       const p = Decimal.pow(
         10,
         Decimal.log(G.prestigePointGain.add(1), 10)
-          - Decimal.log(player.prestigePoints.sub(1), 10)
+          .sub(Decimal.log(player.prestigePoints.sub(1), 10))
       )
       DOMCacheGetOrSet('autoprestige').textContent = i18next.t(
         'buildings.autoPrestige',
@@ -356,7 +357,7 @@ export const visualUpdateBuildings = () => {
             Decimal.pow(
               10,
               Decimal.log(G.transcendPointGain.add(1), 10)
-                - Decimal.log(player.transcendPoints.add(1), 10)
+                .sub(Decimal.log(player.transcendPoints.add(1), 10))
             ),
             2
           )
@@ -452,7 +453,7 @@ export const visualUpdateBuildings = () => {
             Decimal.pow(
               10,
               Decimal.log(G.reincarnationPointGain.add(1), 10)
-                - Decimal.log(player.reincarnationPoints.add(1), 10)
+                .sub(Decimal.log(player.reincarnationPoints.add(1), 10))
             ),
             2
           )
@@ -516,7 +517,7 @@ export const visualUpdateBuildings = () => {
         const: format(player.ascendShards, 2),
         amount: format(
           Math.pow(
-            Decimal.log(player.ascendShards.add(1), 10) + 1,
+            to_number(Decimal.log(player.ascendShards.add(1), 10)) + 1,
             1
               + (0.2 / 60)
                 * player.challengecompletions[10]
@@ -559,13 +560,6 @@ export const visualUpdateRunes = () => {
   }
   if (getActiveSubTab() === 0) {
     // Placeholder and place work similarly to buildings, except for the specific Talismans.
-    const talismans = [
-      'rune1Talisman',
-      'rune2Talisman',
-      'rune3Talisman',
-      'rune4Talisman',
-      'rune5Talisman'
-    ] as const
 
     DOMCacheGetOrSet('offeringCount').textContent = i18next.t(
       'runes.offeringsYouHave',
@@ -576,12 +570,13 @@ export const visualUpdateRunes = () => {
 
     for (let i = 1; i <= 7; i++) {
       // First one updates level, second one updates TNL, third updates orange bonus levels
-      let place = G[talismans[i - 1]]
-      if (i > 5) {
-        place = 0
-      }
-      const runeLevel = player.runelevels[i - 1]
+      let runeLevel = player.runelevels[i - 1]
       const maxLevel = calculateMaxRunes(i)
+      if (player.currentChallenge.reincarnation === 9 && i < 6) {
+        runeLevel = 1
+      }
+      const RuneKey = `rune${i as OneToFive}level` as const
+      const bonusrune = G[RuneKey] - runeLevel
       DOMCacheGetOrSet(`rune${i}level`).childNodes[0].textContent = i18next.t(
         'cubes.cubeMetadata.level',
         {
@@ -604,10 +599,7 @@ export const visualUpdateRunes = () => {
         DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t(
           'runes.bonusAmount',
           {
-            x: format(
-              7 * player.constantUpgrades[7]
-                + Math.min(1e7, player.antUpgrades[8]! + G.bonusant9)
-                + place
+            x: format(bonusrune
             )
           }
         )

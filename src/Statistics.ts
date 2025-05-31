@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -100,6 +100,7 @@ import { format, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { to_number } from './mod/try_break_eternity'
 
 export interface StatLine {
   i18n: string
@@ -364,7 +365,7 @@ export const allWowCubeStats: StatLine[] = [
     stat: () =>
       1
       + 0.01
-        * Decimal.log(player.ascendShards.add(1), 4)
+      * to_number(Decimal.log(player.ascendShards.add(1), 4))
         * Math.min(1, player.constantUpgrades[10])
   },
   {
@@ -375,7 +376,7 @@ export const allWowCubeStats: StatLine[] = [
     i18n: 'Achievement193',
     stat: () =>
       1
-      + (player.achievements[193] * Decimal.log(player.ascendShards.add(1), 10))
+      + (player.achievements[193] * to_number(Decimal.log(player.ascendShards.add(1), 10)))
         / 400
   },
   {
@@ -385,7 +386,7 @@ export const allWowCubeStats: StatLine[] = [
       + Math.min(
         250,
         (player.achievements[195]
-          * Decimal.log(player.ascendShards.add(1), 10))
+          * to_number(Decimal.log(player.ascendShards.add(1), 10)))
           / 400
       )
   },
@@ -445,7 +446,7 @@ export const allTesseractStats: StatLine[] = [
   },
   {
     i18n: 'ConstantUpgrade10',
-    stat: () => 1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10])
+    stat: () => 1 + 0.01 * to_number(Decimal.log(player.ascendShards.add(1), 4)) * Math.min(1, player.constantUpgrades[10])
   },
   {
     i18n: 'CubeUpgrade3x10',
@@ -460,7 +461,7 @@ export const allTesseractStats: StatLine[] = [
     stat: () =>
       1 + Math.min(
         250,
-        (player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10)) / 400
+        (player.achievements[195] * to_number(Decimal.log(player.ascendShards.add(1), 10))) / 400
       )
   },
   {
@@ -570,7 +571,7 @@ export const allPlatonicCubeStats: StatLine[] = [
     stat: () =>
       1 + Math.min(
         20,
-        ((player.achievements[196] * 1) / 5000) * Decimal.log(player.ascendShards.add(1), 10)
+        ((player.achievements[196] * 1) / 5000) * to_number(Decimal.log(player.ascendShards.add(1), 10))
       )
   },
   {
@@ -639,7 +640,7 @@ export const allHepteractCubeStats: StatLine[] = [
     stat: () =>
       Math.min(
         2,
-        1 + (1 / 1000000) * Decimal.log(player.ascendShards.add(1), 10) * player.achievements[270]
+        1 + (1 / 1000000) * to_number(Decimal.log(player.ascendShards.add(1), 10)) * player.achievements[270]
       )
   }
 ]
@@ -906,7 +907,7 @@ export const allOfferingStats = [
   },
   {
     i18n: 'PrestigeShards',
-    stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5 // Prestige Shards
+    stat: () => 1 + Math.pow(to_number(Decimal.log(player.prestigeShards.add(1), 10)), 1 / 2) / 5 // Prestige Shards
   },
   {
     i18n: 'SuperiorIntellect',
@@ -1405,7 +1406,7 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
 export const allObtainiumStats: StatLine[] = [
   {
     i18n: 'TranscendShards',
-    stat: () => Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2) // Transcend Shards
+    stat: () => Math.pow(to_number(Decimal.log(player.transcendShards.add(1), 10)) / 300, 2) // Transcend Shards
   },
   {
     i18n: 'ReincarnationUpgrade9',

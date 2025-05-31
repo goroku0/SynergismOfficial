@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import { achievementaward } from './Achievements'
 import { buyUpgrades } from './Buy'
 import { player } from './Synergism'
@@ -26,7 +26,7 @@ export const buyGenerator = (i: number, state: boolean) => {
     player.upgrades[105]
   )
 
-  if (player.upgrades[q] === 0 && player[type].gte(cost)) {
+  if (player.upgrades[q] === 0 && player[type].gt(cost)) {
     if (achievementCheck === 0 && q >= 102 && q <= 105) {
       achievementaward(q - 31)
     }
@@ -46,7 +46,7 @@ export const buyAutobuyers = (i: number, state?: boolean) => {
   }
 
   const cost = Decimal.pow(10, G.upgradeCosts[q])
-  if (player.upgrades[q] === 0 && player[type].gte(cost)) {
+  if (player.upgrades[q] === 0 && player[type].gt(cost)) {
     player[type] = player[type].sub(cost)
     player.upgrades[q] = 1
     upgradeupdate(q, state)

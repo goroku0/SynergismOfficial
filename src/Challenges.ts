@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal from 'break_eternity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
@@ -567,11 +567,12 @@ export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', compl
   }
 }
 
-export const challengeRequirement = (challenge: number, completion: number, special = 0) => {
+export const challengeRequirement = (challenge: number, completion: number, special = 0): Decimal => {
   const base = G.challengeBaseRequirements[challenge - 1]
   if (challenge <= 5) {
     return Decimal.pow(10, base * calculateChallengeRequirementMultiplier('transcend', completion, special))
-  } else if (challenge <= 10) {
+  }
+  if (challenge <= 10) {
     let c10Reduction = 0
     if (challenge === 10) {
       c10Reduction =
@@ -582,15 +583,17 @@ export const challengeRequirement = (challenge: number, completion: number, spec
       10,
       (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion, special)
     )
-  } else if (challenge <= 14) {
-    return calculateChallengeRequirementMultiplier('ascension', completion, special)
-  } else if (challenge === 15) {
+  }
+  if (challenge <= 14) {
+    return new Decimal(calculateChallengeRequirementMultiplier('ascension', completion, special))
+  }
+  if (challenge === 15) {
     return Decimal.pow(
       10,
       1 * Math.pow(10, 30) * calculateChallengeRequirementMultiplier('ascension', completion, special)
     )
   } else {
-    return 0
+    return new Decimal(0)
   }
 }
 
